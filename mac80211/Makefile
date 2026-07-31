@@ -436,12 +436,11 @@ config-$(CONFIG_LEDS_TRIGGERS) += MAC80211_LEDS
 
 MAKE_OPTS:= -C "$(PKG_BUILD_DIR)" \
 	$(KERNEL_MAKE_FLAGS) \
-	EXTRA_CFLAGS="-I$(PKG_BUILD_DIR)/include $(IREMAP_CFLAGS)" \
+	EXTRA_CFLAGS="-nostdinc -isystem $(shell $(TARGET_CC) -print-file-name=include) -I$(PKG_BUILD_DIR)/include $(IREMAP_CFLAGS)" \
 	KLIB_BUILD="$(LINUX_DIR)" \
 	MODPROBE=true \
 	KLIB=$(TARGET_MODULES_DIR) \
 	KERNEL_SUBLEVEL=$(lastword $(subst ., ,$(KERNEL_PATCHVER))) \
-	NOSTDINC_FLAGS="-nostdinc -isystem $(shell $(TARGET_CC) -print-file-name=include)" \
 	KBUILD_LDFLAGS_MODULE_PREREQ=
 
 define ConfigVars
