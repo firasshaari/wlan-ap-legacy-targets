@@ -441,6 +441,7 @@ MAKE_OPTS:= -C "$(PKG_BUILD_DIR)" \
 	MODPROBE=true \
 	KLIB=$(TARGET_MODULES_DIR) \
 	KERNEL_SUBLEVEL=$(lastword $(subst ., ,$(KERNEL_PATCHVER))) \
+	NOSTDINC_FLAGS="-nostdinc -isystem $(shell $(TARGET_CC) -print-file-name=include)" \
 	KBUILD_LDFLAGS_MODULE_PREREQ=
 
 define ConfigVars
